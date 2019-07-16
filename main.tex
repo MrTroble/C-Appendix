@@ -6,6 +6,10 @@
 \usepackage{enumerate}
 \usepackage{tabu}
 \begin{document}
+\title{C-Appendix}
+\author{Benjamin Steffen, Nico Fröhlich}
+\maketitle
+\clearpage
 
 \tableofcontents
 
@@ -41,7 +45,7 @@ Außerdem gibt es keinen booleschen Datentyp, generell stellt 0 den Wert \textit
 	\hline
 	\textbf{Literal} & \textbf{Nutzung} &  \textbf{Beispiel} \\ \hline
     0b & Binärschreibweise & 0b0001 für 1\\
-    0h & Hexadezimalschreibweise & 0h000F für 16\\
+    0x & Hexadezimalschreibweise & 0x000F für 16\\
 	\hline
 \end{tabular}
 \end{center}
@@ -53,7 +57,7 @@ Hat man also beispielsweise einen Integerwert in einem \textbf{int wert = 22} ge
 Grund dafür ist die unterschiedliche Größe der Datentypen. Intern wird zwischen ihnen nicht unterschieden, deshalb muss dem Compiler gesagt werden, wie viele Bytes gelesen oder geschrieben werden sollen.
 
 \subsection{Strings}
-In C werden Zeichenketten (Strings) wörtlich genommen dort gibt es nämlich keine String klasse wie in Java. Hier werden lediglich 
+In C werden Zeichenketten (Strings) wörtlich genommen dort gibt es nämlich keine String klasse wie in Java. Hier werden lediglich ein "array" an Zeichen verwendet bzw. ein \textbf{char*}. Wobei die Zeichenkette bei dem ASCII code 0 bzw \textbf{"\textbackslash 0"} endet. Angegeben wird diese wie in Java im code mit "\newline Beispiel: \textbf{char* string = "HALLO";}.
 
 \subsection{Syntax}
 Im folgenden wird kurz aufgezeigt, wie das Deklarieren und Verwenden von Variablen und Kontrollstrukturen aussieht.
@@ -82,11 +86,11 @@ int main(int argc, char** argv) {	//Definition des Programmeinstiegpunktes
 \subsection{Header und Source}
 
 Im Vergleich zu Java gibt es in C zwei "Phasen" beim Compilern. Den sog. Linker und den normalen Compiler. Dabei Compiliert der Compiler den Code während der Linker nur die Definitionen von Funktionen und Header Variablen hat. Der Linker verbindet die jeweiligen Dateien nach dem Compilieren vernünftig. Das wichtige dabei ist das man generell nur Deklarationen in die Header macht und diese dann auch "included". Siehe Folgendes Kapitel.
-
+\newpage
 \subsection{C8051F340.h}
 Siehe: https://github.com/MrTroble/ADC-C8051F340/blob/master/C8051F340.h
 \newline\newline
-Der C8051F340 Header ist ein von Cygnal/SiLabs bereit gestellter Header der bereits alle ASM Register mit ihren jeweiligen Adressen enthält. Dabei koenne die jeweiligen Register wie normale variablen mit bit Operatoren angesteuert werden.\newpage Beispiel:
+Der C8051F340 Header ist ein von Cygnal/SiLabs bereit gestellter Header der bereits alle ASM Register mit ihren jeweiligen Adressen enthält. Dabei koenne die jeweiligen Register wie normale variablen mit bit Operatoren angesteuert werden. Beispiel:
 \begin{verbatim}
 #include <C8051F340.h>
 
