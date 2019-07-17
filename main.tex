@@ -120,6 +120,61 @@ void main() {
 
 \section{Advanced}
 
+\subsection{Structs}
+
+Structs ermöglichen es, verschiedene Datentypen in einem Datenobjekt zusammenzufassen. Dies ist bei Heirarchiestrukturen nützlich und trägt auch generell zu einer guten Code organisation bei. Das zugreifen auf Elemente ist mittels des \textit{Punktoperators} möglich.
+Structs werden außerhalb von Funktionen definiert.
+\begin{verbatim}
+struct Person {
+    char name[64];
+    int alter;
+};
+
+int main() {
+    struct Person Max;
+    strcpy(max.name, "Max");
+    max.alter = 17;
+}
+\end{verbatim}
+
+\subsection{Unions}
+Unions ermöglichen es, verschiedene Datentype im gleichen Speicherbereich abzulegen. Allerdings kann nur ein Wert aufeinmal belegt werden. Dies ermöglicht Speichereffizientes programmieren.
+\begin{verbatim}
+union overlay {
+    long longWert;
+    float floatWert;
+}
+\end{verbatim}
+Hier wird ein \textit{long} und ein \textit{float} in den gleichen Speicher gelegt. Zugriff erflogt wie bei Structs.
+
+\subsection{Bitfields}
+Mit Bitfields ist es möglich, die genaue Anzahl an bits, die ein Wert belegen soll, zu bestimmen. Hat man beispielsweise mehrere \textit{boolean} Werte, wäre es verschwendung dafür 1, 2, oder sogar 4 byte pro Wert zu belegen. Im folgenden Beispiel wird gezeigt wie man dieses Problem löst.
+\begin{verbatim}
+struct {
+    unsigned char bool0: 1;
+    unsigned char bool1: 1;
+    unsigned char bool2: 1;
+    unsigned char bool3: 1;
+    unsigned char bool4: 1;
+    unsigned char bool5: 1;
+    unsigned char bool6: 1;
+    unsigned char bool7: 1;
+};
+\end{verbatim}
+Diese Struktur beinhaltet nun 8 Werte, die alle ein bit groß sind und daher genauso viel Speicher benötigen wie ein regulärer \textit{char}.
+
+\subsection{typedef}
+Das \textit{typedef} keyword wird verwendet, um Typen neue Namen zu geben. So kann man beispielesweise das Erstellen einer struct vereinfachen. (vergleiche oben)
+\begin{verbatim}
+typedef struct person_t {
+    (...)
+} Person;
+
+int main() {
+    person p;
+}
+\end{verbatim}
+
 \subsection{SDCC - Small Device C Compiler}
 
 Siehe: http://sdcc.sourceforge.net/doc/sdccman.pdf
