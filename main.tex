@@ -17,7 +17,8 @@
 
 \section{Die Programmiersprache C}
 C wurde 1972-1973 von Dennis Ritchie an den Bell Labs entwickelt. C ist eine systemnahe Sprache, da sie sehr nahe an der Hardware liegt. Sie gehört zu den am weitesten verbreiteten Sprachen und findet Anwendung in Betriebssystemen,
-Nutzeranwendungen,  Integrierten Systemen uvm..
+Nutzeranwendungen,  Integrierten Systemen uvm..\\
+Dieses Dokument bescheibt eine Abwandlung von C wie sie der SDCC nutzt. Dies ist allerdings nicht der offizielle Standard, dieser wird in \\\textit{The C Programming Language (Dennis Ritchie, Brian Kernigham)} beschrieben.
 
 \subsection{Datentypen}
 C kennt folgende primitive Datentypen:
@@ -36,8 +37,8 @@ C kennt folgende primitive Datentypen:
 	\hline
 \end{tabular}
 \end{center}
-Bis auf float und double haben all diese Datentype auch eine \textit{unsigned} Variante. Das bedeutet, dass dann keine negative Werte, aber doppelt so viele positive Werte möglich sind. Desweiteren gibt es noch den Datentyp \textit{void}, welcher das Fehlen eines Datentyps darstellt.
-Außerdem gibt es keinen booleschen Datentyp, generell stellt 0 den Wert \textit{false} dar, während alles andere \textit{true} ist
+Bis auf float und double haben all diese Datentypen auch eine \textit{unsigned} Variante. Das bedeutet, dass dann keine negative Werte, aber doppelt so viele positive Werte möglich sind. Desweiteren gibt es noch den Datentyp \textit{void}, welcher das Fehlen eines Datentyps darstellt.
+Normalerweise gibt es auch keinen booleschen Datentyp, dann stellt 0 den Wert \textit{false} dar, während alles andere \textit{true} ist
 
 \subsection{Literals}
 \begin{center}
@@ -46,6 +47,7 @@ Außerdem gibt es keinen booleschen Datentyp, generell stellt 0 den Wert \textit
 	\textbf{Literal} & \textbf{Nutzung} &  \textbf{Beispiel} \\ \hline
     0b & Binärschreibweise & 0b0001 für 1\\
     0x & Hexadezimalschreibweise & 0x000F für 16\\
+	0* & Oktalschreibweise & 012 für 10\\
 	\hline
 \end{tabular}
 \end{center}
@@ -54,11 +56,21 @@ Außerdem gibt es keinen booleschen Datentyp, generell stellt 0 den Wert \textit
 Ein Merkmal und mächtiges Werkzeug von C sind \textit{Pointer}. Pointer sind Variablen die keine alleinstehenden Werte beinhalten, sondern auf die Speicheradresse einer anderen Variable zeigen.
 Die Adresse einer variable kann mithilfe des \textit{\&-Operators ermittelt werden}. Der \textit{*-Operator} hat zwei Aufgaben. Zum einen zeigt er an, dass eine Variable ein Pointer ist, zum anderen nutzt man ihn um den Wert eines Pointers auszulesen (Dereferenzieren).
 Hat man also beispielsweise einen Integerwert in einem \textbf{int wert = 22} gespeichert, so kann man den Ort, an dem sich dieser Wert befindet in einem Pointer \textbf{int *ptr = \&wert} festhalten. Hierbei muss beachtet werden, dass weiterhin der Datentyp angegeben wird.
-Grund dafür ist die unterschiedliche Größe der Datentypen. Intern wird zwischen ihnen nicht unterschieden, deshalb muss dem Compiler gesagt werden, wie viele Bytes gelesen oder geschrieben werden sollen.
+Grund dafür ist die unterschiedliche Größe der Datentypen. Intern wird zwischen ihnen nicht unterschieden, deshalb muss dem Compiler gesagt werden, wie viele Bytes gelesen oder geschrieben werden sollen. Hier sind Pointer zwischen einem und vier Bytes groß.
 
 \subsection{Strings}
-In C werden Zeichenketten (Strings) wörtlich genommen dort gibt es nämlich keine String klasse wie in Java. Hier werden lediglich ein "array" an Zeichen verwendet bzw. ein \textbf{char*}. Wobei die Zeichenkette bei dem ASCII code 0 bzw \textbf{"\textbackslash 0"} endet. Angegeben wird diese wie in Java im code mit "\newline Beispiel: \textbf{char* string = "HALLO";}.
+In C werden Zeichenketten (Strings) wörtlich genommen, dort gibt es nämlich keine Stringklasse wie in Java. Hier wird lediglich ein Array an Zeichen verwendet bzw. ein \textit{char*}, wobei die Zeichenkette bei dem ASCII code 0 bzw \textit{'\textbackslash 0'} endet.
+Angegeben wird diese wie in Java im code mit "\newline Beispiel: \textit{char* string = "Hello, World!";}.
 
+\subsection{Compiler und Linker}
+Anders als Java ist C nicht interpretiert, sondern wird direkt in Maschinencode umgewandelt. Dieser Vorgang ist generell in zwei Schritte unterteilt. Zuerst wird der C Code Kompiliert, also in Maschinencode übersetzt. Dabei entstehen sogenannte \textit{Object Files}. Der Linker bringt diese Dateien dann in
+einer Ausführbaren Datei zusammen und stellt referenzen zwischen Funktionen und Bibliotheken her.
+
+\subsection{Header}
+Neben den Sourcedateien (.c) gibt es auch \textit{Headerdateien} (.h). Diese Dateien werden genutzt um Funktions- und Strukturprototypen zu deklarieren und diese durch eine Bibliothek oder eine andere Sourcedatei zugänglich zu machen.
+Headerdateien werden über \textit{\#include {\textless}header.h{\textgreater}} eingebunden. \\Beim Kompilationsprozess wird die hier angegebene Datei einfach an die Stelle des include Befehls kopiert.
+
+\newpage
 \subsection{Syntax}
 Im folgenden wird kurz aufgezeigt, wie das Deklarieren und Verwenden von Variablen und Kontrollstrukturen aussieht.
 
@@ -73,8 +85,8 @@ int main(int argc, char** argv) {	//Definition des Programmeinstiegpunktes
                                      // ist aber je nach implementation nicht immer nötig
     for(int i=0; i<10; i++) {
         printf("Hello World! %d", i);	//10 malige ausgabe eines Textes,
-                                      //mit integer Wert in einem Formatstring
-    }
+    }                                 //mit integer Wert in einem Formatstring
+    
 	
     while(zahl>0)	//Blöcke {} sind nicht notwendig,
         zahl--;   //wenn unter dem Schleifenkopf nur eine Anweisung steht
@@ -83,9 +95,6 @@ int main(int argc, char** argv) {	//Definition des Programmeinstiegpunktes
 }
 \end{verbatim}
 
-\subsection{Header und Source}
-
-Im Vergleich zu Java gibt es in C zwei "Phasen" beim Compilern. Den sog. Linker und den normalen Compiler. Dabei Compiliert der Compiler den Code während der Linker nur die Definitionen von Funktionen und Header Variablen hat. Der Linker verbindet die jeweiligen Dateien nach dem Compilieren vernünftig. Das wichtige dabei ist das man generell nur Deklarationen in die Header macht und diese dann auch "included". Siehe Folgendes Kapitel.
 \newpage
 \subsection{C8051F340.h}
 Siehe: https://github.com/MrTroble/ADC-C8051F340/blob/master/C8051F340.h
@@ -95,19 +104,17 @@ Der C8051F340 Header ist ein von Cygnal/SiLabs bereit gestellter Header der bere
 #include <C8051F340.h>
 
 void main() {
-
     ADC0CN |= 0x80; // Enable ADC0 subsystem
-    AMX0N = 0x1F; // Set negative mux to GND -> use singel end mode
+    AMX0N = 0x1F; // Set negative mux to GND -> use single end mode
     // use AMX0P default config -> P1.0
-    while (1) { // Unlimited loop
+    while (1) { // Infinite loop
         ADC0CN |= 0x10; // or 16 to trigger AD0BUSY
-        while (!(ADC0CN & 0x20 /* or 32*/)) {} // wait for the AD0INT to become 1
+        while (!(ADC0CN & 0x20 /* or 32*/)) {continue;} // wait for the AD0INT to become 1
         // go ahead after thread block
         P3 = ADC0L; // Put low bits in P3
         P0_0 = ADC0H & 1; // Put first bit of high bits into P0.0
         P0_1 = ADC0H & 2; // Put second bit of high bits into P0.1
     }
-    
 }
 \end{verbatim}
 
