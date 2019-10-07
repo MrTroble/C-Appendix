@@ -41,18 +41,6 @@ C kennt folgende primitive Datentypen:
 Bis auf float und double haben all diese Datentypen auch eine \textit{unsigned} Variante. Das bedeutet, dass dann keine negative Werte, aber doppelt so viele positive Werte möglich sind. Desweiteren gibt es noch den Datentyp \textit{void}, welcher das Fehlen eines Datentyps darstellt.
 Normalerweise gibt es auch keinen booleschen Datentyp, dann stellt 0 den Wert \textit{false} dar, während alles andere \textit{true} ist
 
-\subsection{Literals}
-\begin{center}
-\begin{tabular}{| l | c | r |}
-	\hline
-	\textbf{Literal} & \textbf{Nutzung} &  \textbf{Beispiel} \\ \hline
-    0b & Binärschreibweise & 0b0001 für 1\\
-    0x & Hexadezimalschreibweise & 0x000F für 16\\
-	0* & Oktalschreibweise & 012 für 10\\
-	\hline
-\end{tabular}
-\end{center}
-
 \subsection{Pointer}
 Ein Merkmal und mächtiges Werkzeug von C sind \textit{Pointer}. Pointer sind Variablen die keine alleinstehenden Werte beinhalten, sondern auf die Speicheradresse einer anderen Variable zeigen.
 Die Adresse einer variable kann mithilfe des \textit{\&-Operators ermittelt werden}. Der \textit{*-Operator} hat zwei Aufgaben. Zum einen zeigt er an, dass eine Variable ein Pointer ist, zum anderen nutzt man ihn um den Wert eines Pointers auszulesen (Dereferenzieren).
@@ -66,12 +54,11 @@ Angegeben wird diese wie in Java im code mit "\newline Beispiel: \textit{char* s
 \subsection{Compiler und Linker}
 Anders als Java ist C nicht interpretiert, sondern wird direkt in Maschinencode umgewandelt. Dieser Vorgang ist generell in zwei Schritte unterteilt. Zuerst wird der C Code Kompiliert, also in Maschinencode übersetzt. Dabei entstehen sogenannte \textit{Object Files}. Der Linker bringt diese Dateien dann in
 einer Ausführbaren Datei zusammen und stellt Referenzen zwischen Funktionen und Bibliotheken her.
-
 \subsection{Header}
 Neben den Sourcedateien (.c) gibt es auch \textit{Headerdateien} (.h). Diese Dateien werden genutzt um Funktions- und Strukturprototypen zu deklarieren und diese durch eine Bibliothek oder eine andere Sourcedatei zugänglich zu machen.
 Headerdateien werden über \textit{\#include {\textless}header.h{\textgreater}} eingebunden. \\Beim Kompilationsprozess wird die hier angegebene Datei einfach an die Stelle des include Befehls kopiert.
 
-\subsection{Syntax}
+\section{Syntax}
 Im folgenden wird kurz aufgezeigt, wie das Deklarieren und Verwenden von Variablen und Kontrollstrukturen aussieht. Beispiel:
 \newpage
 \begin{minted}{c}
@@ -92,9 +79,55 @@ int main(int argc, char** argv) {	//Definition des Programmeinstiegpunktes
     while(zahl>0)	//Blöcke {} sind nicht notwendig,
         zahl--;   //wenn unter dem Schleifenkopf nur eine Anweisung steht
 		
-	    return 0; //Die Funktion ended mit "return 0;" um erfolgreiche Abarbeitung zu melden
+	    return 0; 
+	    //Die Funktion ended mit "return 0;" um erfolgreiche Abarbeitung zu melden
 }
 \end{minted}
+
+\subsection{Schleifen und Verzweigungen}
+In diesem Abschnitt werden Schleifen und Verzweigungen in C erklärt. Diese sind weitgehend wie in Java. Bei diesem Speziellen Compiler gibt es allerdings ein paar Eigenarten. [Da sich die Leute nicht an Standards halten können]
+\subsubsection*{While}
+\begin{minted}{c}
+while(a == b) {
+continue;// Muss mindestens ein Statement haben
+}
+\end{minted}
+Infinite loop
+\begin{minted}{c}
+while(1) { // Kein true -> es gibt kein true (1 für true / 0 für false)
+continue;// Muss mindestens ein Statement haben
+}
+\end{minted}
+Do-While
+\begin{minted}{c}
+do {
+continue;// Muss mindestens ein Statement haben
+} while (a != b)
+\end{minted}
+\subsubsection*{For}
+\begin{minted}{c}
+for(i = 0; i < size; i++) { // Kein Datentyp
+continue;// Muss mindestens ein Statement haben
+}
+\end{minted}
+\subsubsection*{If}
+\begin{minted}{c}
+if (a == b) {
+continue;// Muss mindestens ein Statement haben
+}
+\end{minted}
+
+\subsection{Literals}
+\begin{center}
+\begin{tabular}{| l | c | r |}
+	\hline
+	\textbf{Literal} & \textbf{Nutzung} &  \textbf{Beispiel} \\ \hline
+    0b & Binärschreibweise & 0b0001 für 1\\
+    0x & Hexadezimalschreibweise & 0x000F für 16\\
+	0* & Oktalschreibweise & 012 für 10\\
+	\hline
+\end{tabular}
+\end{center}
 
 \subsection{Operator}
 Die logischen sowie die bitweisen Operatoren sind in C genau wie in Java.
