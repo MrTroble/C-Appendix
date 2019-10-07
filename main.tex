@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{blindtext}
 \usepackage{enumerate}
+\usepackage{minted}
 \usepackage{tabu}
 \begin{document}
 \title{C-Appendix}
@@ -73,7 +74,7 @@ Headerdateien werden über \textit{\#include {\textless}header.h{\textgreater}} 
 \subsection{Syntax}
 Im folgenden wird kurz aufgezeigt, wie das Deklarieren und Verwenden von Variablen und Kontrollstrukturen aussieht. Beispiel:
 \newpage
-\begin{verbatim}
+\begin{minted}{c}
 #include <stdio.h> //Einbinden eines Headers
 
 int main(int argc, char** argv) {	//Definition des Programmeinstiegpunktes
@@ -82,7 +83,8 @@ int main(int argc, char** argv) {	//Definition des Programmeinstiegpunktes
     char charakter = 'a';
     char *text = "Beispiel Text\0";  // \0 Markiert das Ende eines Characterstrings,
                                      // ist aber je nach implementation nicht immer nötig
-    for(int i=0; i<10; i++) {
+    for(i=0; i<10; i++) { // Da wir einen Compiler haben der sich nicht an Standards 
+    //hält darf man keinen Datentyp bei for schleifen angeben
         printf("Hello World! %d", i);	//10 malige ausgabe eines Textes,
     }                                 //mit integer Wert in einem Formatstring
     
@@ -92,7 +94,7 @@ int main(int argc, char** argv) {	//Definition des Programmeinstiegpunktes
 		
 	    return 0; //Die Funktion ended mit "return 0;" um erfolgreiche Abarbeitung zu melden
 }
-\end{verbatim}
+\end{minted}
 
 \subsection{Operator}
 Die logischen sowie die bitweisen Operatoren sind in C genau wie in Java.
@@ -124,7 +126,7 @@ Die logischen sowie die bitweisen Operatoren sind in C genau wie in Java.
 Siehe: https://github.com/MrTroble/ADC-C8051F340/blob/master/C8051F340.h
 \newline\newline
 Der C8051F340 Header ist ein von Cygnal/SiLabs bereit gestellter Header der bereits alle ASM Register mit ihren jeweiligen Adressen enthält. Dabei können die jeweiligen Register wie normale variablen mit bit Operatoren angesteuert werden. Beispiel:
-\begin{verbatim}
+\begin{minted}{c}
 #include <C8051F340.h>
 
 void main() {
@@ -140,68 +142,5 @@ void main() {
         P0_1 = ADC0H & 2; // Put second bit of high bits into P0.1
     }
 }
-\end{verbatim}
-
-\section{Advanced}
-
-\subsection{Structs}
-
-Structs ermöglichen es, verschiedene Datentypen in einem Datenobjekt zusammenzufassen. Dies ist bei Hierarchiestrukturen nützlich und trägt auch generell zu einer guten Code Organisation bei. Das zugreifen auf Elemente ist mittels des \textit{Punktoperators} möglich.
-Structs werden außerhalb von Funktionen definiert.
-\begin{verbatim}
-struct Person {
-    char name[64];
-    int alter;
-};
-
-int main() {
-    struct Person Max;
-    strcpy(max.name, "Max");
-    max.alter = 17;
-}
-\end{verbatim}
-
-\subsection{Unions}
-Unions ermöglichen es, verschiedene Datentype im gleichen Speicherbereich abzulegen. Allerdings kann nur ein Wert auf einmal belegt werden. Dies ermöglicht Speichereffizientes programmieren.
-\begin{verbatim}
-union overlay {
-    long longWert;
-    float floatWert;
-}
-\end{verbatim}
-Hier wird ein \textit{long} und ein \textit{float} in den gleichen Speicher gelegt. Zugriff erflogt wie bei Structs.
-
-\subsection{Bitfields}
-Mit Bitfields ist es möglich, die genaue Anzahl an Bits, die ein Wert belegen soll, zu bestimmen. Hat man beispielsweise mehrere \textit{boolean} Werte, wäre es Verschwendung dafür 1, 2, oder sogar 4 Bytes pro Wert zu belegen. Im folgenden Beispiel wird gezeigt wie man dieses Problem löst.
-\newpage
-\begin{verbatim}
-struct {
-    unsigned char bool0: 1;
-    unsigned char bool1: 1;
-    unsigned char bool2: 1;
-    unsigned char bool3: 1;
-    unsigned char bool4: 1;
-    unsigned char bool5: 1;
-    unsigned char bool6: 1;
-    unsigned char bool7: 1;
-};
-\end{verbatim}
-Diese Struktur beinhaltet nun 8 Werte, die alle ein bit groß sind und daher genauso viel Speicher benötigen wie ein regulärer \textit{char}.
-
-\subsection{typedef}
-Das \textit{typedef} keyword wird verwendet, um Typen neue Namen zu geben. So kann man beispielsweise das Erstellen einer struct vereinfachen. (vergleiche oben)
-\begin{verbatim}
-typedef struct person_t {
-    (...)
-} Person;
-
-int main() {
-    Person p;
-}
-\end{verbatim}
-
-\subsection{SDCC - Small Device C Compiler}
-
-Siehe: http://sdcc.sourceforge.net/doc/sdccman.pdf
-
+\end{minted}
 \end{document}
